@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "mcpnp",
+  "version": "${version}",
+  "name": "Minecraft Plug-n-Play",
+  "description": "A Minecraft LAN overhaul",
+  "authors": [
+    "TheGlitch76"
+  ],
+  "contact": {
+    "repo": "https://github.com/glitchieproductions/mcpnp"
+  },
+  "license": "0BSD",
+  "icon": "assets/mcpnp/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "glitchieproductions.mcpnp.client.McpnpClient"
+    ],
+    "main": [
+      "glitchieproductions.mcpnp.common.Mcpnp"
+    ],
+    "dedicated": [
+      "glitchieproductions.mcpnp.dedicated.McpnpDedicatedServer"
+    ]
+  },
+  "mixins": [
+    "mcpnp.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.1",
+    "fabric": ">=0.30.0",
+    "minecraft": ">=1.16.5"
+  }
+}

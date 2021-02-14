@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "glitchieproductions.mcpnp.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "common.PlayerManagerAccess"
+  ],
+  "client": [
+    "client.MixinGameMenuScreen"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
