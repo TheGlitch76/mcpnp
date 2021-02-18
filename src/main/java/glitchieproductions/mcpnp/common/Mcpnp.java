@@ -6,12 +6,10 @@ import com.google.gson.JsonParseException;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.Clipboard;
 import net.minecraft.client.util.NetworkUtils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.world.GameMode;
 import org.apache.logging.log4j.LogManager;
@@ -70,7 +68,7 @@ public class Mcpnp implements ModInitializer {
 					}
 					cfg.device = discover.getValidGateway();
 					if (cfg.device == null) {
-						sendMessage("Unable to forward port: UPnP is not enabled on your router!", server);
+						sendMessage("mcpnp.upnp.failed.disabled", server);
 						cfg.portForward = false; // people are lazy
 						return;
 					}
@@ -90,7 +88,7 @@ public class Mcpnp implements ModInitializer {
 							if (entry.getExternalPort() == cfg.port || (entry.getInternalPort() == cfg.port && entry.getInternalClient().equals(localIp))) {
 								// silently ignore instances when it's already forwarded properly
 								if (!(entry.getPortMappingDescription().equals(MODID) && entry.getInternalClient().equals(localIp))) {
-									sendMessage("Unable to forward port: " + entry.getPortMappingDescription() + " has already claimed port " + cfg.port + " for " + entry.getInternalClient(), server);
+									sendMessage("mcpnp.upnp.failed.mapped", server);
 									run = false;
 									break;
 								}
@@ -103,7 +101,7 @@ public class Mcpnp implements ModInitializer {
 
 					if (run) {
 						if (!cfg.device.addPortMapping(cfg.port, cfg.port, localIp, "tcp", "mcpnp")) {
-							sendMessage("Unable to forward port: unknown error while adding port mapping.", server);
+							sendMessage("mcpnp.upnp.failed.unknownerror", server);
 						} else {
 							// for safety
 							Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -113,7 +111,7 @@ public class Mcpnp implements ModInitializer {
 									LOGGER.throwing(e);
 								}
 							}));
-							sendMessage("Successfully forwarded port.", server);
+							sendMessage("mcpnp.upnp.success", server);
 
 							if (cfg.copyToClipboard) {
 								MinecraftClient client = MinecraftClient.getInstance();
@@ -121,10 +119,10 @@ public class Mcpnp implements ModInitializer {
 									try {
 										client.keyboard.setClipboard(cfg.device.getExternalIPAddress() + ":" + cfg.port);
 									} catch (IOException | SAXException e) {
-										client.inGameHud.getChatHud().addMessage(new LiteralText("Couldn't get external IP?"));
+										client.inGameHud.getChatHud().addMessage(new TranslatableText("mcpnp.upnp.success.cantgetip"));
 										LOGGER.throwing(e);
 									}
-									client.inGameHud.getChatHud().addMessage(new LiteralText("Your IP address has been copied to your clipboard."));
+									client.inGameHud.getChatHud().addMessage(new TranslatableText("mcpnp.upnp.success.clipboard"));
 								});
 							}
 
@@ -132,7 +130,7 @@ public class Mcpnp implements ModInitializer {
 						}
 					}
 				} catch (IOException | ParserConfigurationException | SAXException ex) {
-					sendMessage("Unable to forward port: " + ex.getLocalizedMessage(), server);
+					sendMessage("mcpnp.upnp.failed", server);
 					LOGGER.throwing(ex);
 				}
 			}).start();
@@ -190,8 +188,9 @@ public class Mcpnp implements ModInitializer {
 	}
 
 	private static void sendMessage(String string, MinecraftServer server) {
-		server.execute(() -> MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(new LiteralText(string)));
+		server.execute(() -> MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(new TranslatableText(string)));
 	}
+
 	public static class Config {
 		public int version = 1; // set by default
 		public int port = NetworkUtils.findLocalPort(); // set by default
