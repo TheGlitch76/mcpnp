@@ -6,7 +6,7 @@
     "mcpnp.gui.othergamesettings": "其他游戏设置",
     "mcpnp.gui.allowcheats": "允许作弊",
     "mcpnp.gui.opentolan": "对局域网开放",
-    "mcpnp.gui.portsmal": "端口号太小",
+    "mcpnp.gui.portsmall": "端口号太小",
     "mcpnp.gui.portlarge": "端口号太大",
     "mcpnp.gui.gamemode": "游戏模式",
     "mcpnp.gui.survival": "生存模式",
@@ -14,12 +14,12 @@
     "mcpnp.gui.adventure": "冒险模式",
     "mcpnp.gui.spectator": "旁观模式",
     "mcpnp.gui.cancel": "取消",
-    "mcpnp.text.port": "本地游戏已在端口%s上开启",
-    "mcpnp.upnp.success":"成功转发端口。",
+    "mcpnp.upnp.port": "本地游戏已在端口%s上开启",
+    "mcpnp.upnp.success":"成功转发端口%s。",
     "mcpnp.upnp.success.clipboard":"您的IP地址已复制到剪贴板。",
     "mcpnp.upnp.success.cantgetip":"无法获取外部IP？",
-    "mcpnp.upnp.failed.mapped":"无法转发端口：端口已被另一个UPnP服务映射！",
+    "mcpnp.upnp.failed.mapped":"无法转发端口：%s已将端口%s映射给了%s！ ",
     "mcpnp.upnp.failed.disabled":"无法转发端口：路由器上未启用UPnP！",
     "mcpnp.upnp.failed.unknownerror":"无法转发端口：添加端口映射时出现未知错误。",
-    "mcpnp.upnp.failed":"无法转发端口：它已经在你的路由器上转发了吗？"
+    "mcpnp.upnp.failed":"无法转发端口：%s"
 }

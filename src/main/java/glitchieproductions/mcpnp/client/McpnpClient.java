@@ -1,6 +1,5 @@
 package glitchieproductions.mcpnp.client;
 
-import net.minecraft.client.gui.screen.GameMenuScreen;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

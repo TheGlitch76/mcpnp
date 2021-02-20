@@ -9,6 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.NetworkUtils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.world.GameMode;
@@ -68,7 +69,7 @@ public class Mcpnp implements ModInitializer {
 					}
 					cfg.device = discover.getValidGateway();
 					if (cfg.device == null) {
-						sendMessage("mcpnp.upnp.failed.disabled", server);
+						sendMessage(new TranslatableText("mcpnp.upnp.failed.disabled"), server);
 						cfg.portForward = false; // people are lazy
 						return;
 					}
@@ -88,7 +89,7 @@ public class Mcpnp implements ModInitializer {
 							if (entry.getExternalPort() == cfg.port || (entry.getInternalPort() == cfg.port && entry.getInternalClient().equals(localIp))) {
 								// silently ignore instances when it's already forwarded properly
 								if (!(entry.getPortMappingDescription().equals(MODID) && entry.getInternalClient().equals(localIp))) {
-									sendMessage("mcpnp.upnp.failed.mapped", server);
+									sendMessage(new TranslatableText("mcpnp.upnp.failed.mapped", entry.getPortMappingDescription() , cfg.port , entry.getInternalClient()), server);
 									run = false;
 									break;
 								}
@@ -101,7 +102,7 @@ public class Mcpnp implements ModInitializer {
 
 					if (run) {
 						if (!cfg.device.addPortMapping(cfg.port, cfg.port, localIp, "tcp", "mcpnp")) {
-							sendMessage("mcpnp.upnp.failed.unknownerror", server);
+							sendMessage(new TranslatableText("mcpnp.upnp.failed.unknownerror"), server);
 						} else {
 							// for safety
 							Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -111,7 +112,7 @@ public class Mcpnp implements ModInitializer {
 									LOGGER.throwing(e);
 								}
 							}));
-							sendMessage("mcpnp.upnp.success", server);
+							sendMessage(new TranslatableText("mcpnp.upnp.success", cfg.port), server);
 
 							if (cfg.copyToClipboard) {
 								MinecraftClient client = MinecraftClient.getInstance();
@@ -130,7 +131,7 @@ public class Mcpnp implements ModInitializer {
 						}
 					}
 				} catch (IOException | ParserConfigurationException | SAXException ex) {
-					sendMessage("mcpnp.upnp.failed", server);
+					sendMessage(new TranslatableText("mcpnp.upnp.failed" , ex.getLocalizedMessage()), server);
 					LOGGER.throwing(ex);
 				}
 			}).start();
@@ -187,8 +188,8 @@ public class Mcpnp implements ModInitializer {
 		}
 	}
 
-	private static void sendMessage(String string, MinecraftServer server) {
-		server.execute(() -> MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(new TranslatableText(string)));
+	private static void sendMessage(Text text, MinecraftServer server) {
+		server.execute(() -> MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(text));
 	}
 
 	public static class Config {

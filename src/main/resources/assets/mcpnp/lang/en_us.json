@@ -6,7 +6,7 @@
     "mcpnp.gui.othergamesettings": "Other Game Settings",
     "mcpnp.gui.allowcheats": "Allow Cheats",
     "mcpnp.gui.opentolan": "Open to LAN",
-    "mcpnp.gui.portsmal": "Port is too small",
+    "mcpnp.gui.portsmall": "Port is too small",
     "mcpnp.gui.portlarge": "Port is too large",
     "mcpnp.gui.gamemode": "Game Mode",
     "mcpnp.gui.survival": "Survival",
@@ -14,12 +14,12 @@
     "mcpnp.gui.adventure": "Adventure",
     "mcpnp.gui.spectator": "Spectator",
     "mcpnp.gui.cancel": "Cancel",
-    "mcpnp.text.port": "Local game hosted on port %s",
-    "mcpnp.upnp.success":"Successfully forwarded port.",
+    "mcpnp.upnp.port": "Local game hosted on port %s",
+    "mcpnp.upnp.success":"Successfully forwarded port %s.",
     "mcpnp.upnp.success.clipboard":"Your IP address has been copied to your clipboard.",
     "mcpnp.upnp.success.cantgetip":"Couldn't get external IP?",
-    "mcpnp.upnp.failed.mapped":"Unable to forward port: port was already mapped by another UPnP service!",
+    "mcpnp.upnp.failed.mapped":"Unable to forward port: %s has already claimed port %s for %s!",
     "mcpnp.upnp.failed.disabled":"Unable to forward port: UPnP is not enabled on your router!",
     "mcpnp.upnp.failed.unknownerror":"Unable to forward port: unknown error while adding port mapping.",
-    "mcpnp.upnp.failed":"Unable to forward port: Is it already forwarded on your router?"
+    "mcpnp.upnp.failed":"Unable to forward port: %s"
 }

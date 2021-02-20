@@ -90,12 +90,12 @@ public class OpenToLanGui extends LightweightGuiDescription {
 						port = Integer.parseInt(portField.getText());
 						if (port <= 1024) {
 							portField.setText("");
-							portField.setSuggestion("mcpnp.gui.portsmall");
+							portField.setSuggestion(new TranslatableText("mcpnp.gui.portsmall"));
 							portField.onClick(0, 0, 0);
 							return;
 						} else if (port > 65535) {
 							portField.setText("");
-							portField.setSuggestion("mcpnp.gui.portlarge");
+							portField.setSuggestion(new TranslatableText("mcpnp.gui.portlarge"));
 							portField.onClick(0, 0, 0);
 							return;
 						}
@@ -108,7 +108,7 @@ public class OpenToLanGui extends LightweightGuiDescription {
 					cfg.port = port;
 					client.openScreen(null);
 					Mcpnp.openToLan(server, null);
-					client.inGameHud.getChatHud().addMessage(new TranslatableText("mcpnp.text.port", port));
+					client.inGameHud.getChatHud().addMessage(new TranslatableText("mcpnp.upnp.port", port));
 				});
 
 				main.add(openToLan, x, 8, 5, 1);
