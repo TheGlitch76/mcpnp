@@ -101,7 +101,7 @@ public class OpenToLanGui extends LightweightGuiDescription {
 						}
 					} catch (NumberFormatException ex) {
 						portField.setText("");
-						portField.setSuggestion("mcpnp.gui.port");
+						portField.setSuggestion(new TranslatableText("mcpnp.gui.port"));
 						portField.onClick(0, 0, 0);
 						return;
 					}
