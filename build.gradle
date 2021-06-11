@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
+	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -16,7 +16,7 @@ repositories {
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
 	maven {
-		url = "http://4thline.org/m2/"
+		url = "https://4thline.org/m2/"
 	}
 	mavenCentral()
 }
@@ -30,8 +30,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "io.github.cottonmc:LibGui:3.3.3+1.16.5"
-	include "io.github.cottonmc:LibGui:3.3.3+1.16.5"
+	modImplementation "io.github.cottonmc:LibGui:4.0.0+1.17"
+	include "io.github.cottonmc:LibGui:4.0.0+1.17"
 	modImplementation "org.bitlet:weupnp:0.1.4" // modimplementation because of loom bug
 	include "org.bitlet:weupnp:0.1.4"
 }
@@ -39,13 +39,8 @@ dependencies {
 processResources {
 	inputs.property "version", project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
+	filesMatching("fabric.mod.json") {
 		expand "version": project.version
-	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
 	}
 }
 
