@@ -1,7 +1,6 @@
 package glitchieproductions.mcpnp.client;
 
 import glitchieproductions.mcpnp.common.Mcpnp;
-import glitchieproductions.mcpnp.mixin.common.PlayerManagerAccess;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
@@ -14,10 +13,8 @@ import io.github.cottonmc.cotton.gui.widget.data.VerticalAlignment;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.text.LiteralText;
-import net.minecraft.world.GameMode;
 
 public class OpenToLanGui extends LightweightGuiDescription {
 	private final Screen parent;
